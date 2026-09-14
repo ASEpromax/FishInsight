@@ -61,7 +61,7 @@ class _XianyuLoginPageState extends State<XianyuLoginPage> {
     setState(() => _isExtracting = true);
 
     // 注入 JavaScript 脚本：深度提取闲鱼已售列表页的所有订单与金额信息
-    const jsScript = '''
+    const jsScript = r'''
       (function() {
         try {
           const results = [];
@@ -98,7 +98,7 @@ class _XianyuLoginPageState extends State<XianyuLoginPage> {
 
             if (card) {
               const fullText = card.innerText;
-              const lines = fullText.split('\\n').map(s => s.trim()).filter(Boolean);
+              const lines = fullText.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
               
               // 寻找标题：通常是卡片中除状态和价格外最长的一行
               let title = '';
