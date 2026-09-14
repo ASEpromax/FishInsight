@@ -39,33 +39,45 @@ jobs:
       - name: Build Release APK (ARM64)
         run: |
           flutter build apk --release --target-platform android-arm64
-          cp build/app/outputs/flutter-apk/*.apk build/app/outputs/flutter-apk/FishInsight-v1.0.0-arm64.apk
+          cp build/app/outputs/flutter-apk/*.apk build/app/outputs/flutter-apk/FishInsight-v1.1.0-arm64.apk
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: FishInsight-v1.0.0-arm64
-          path: build/app/outputs/flutter-apk/FishInsight-v1.0.0-arm64.apk
+          name: FishInsight-v1.1.0-arm64
+          path: build/app/outputs/flutter-apk/FishInsight-v1.1.0-arm64.apk
 
       - name: Publish to GitHub Releases
         if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
-          name: FishInsight v1.0.0
-          files: build/app/outputs/flutter-apk/FishInsight-v1.0.0-arm64.apk
+          tag_name: v1.1.0
+          name: FishInsight v1.1.0
+          files: build/app/outputs/flutter-apk/FishInsight-v1.1.0-arm64.apk
           body: |
-            ## FishInsight (知鱼) v1.0.0
+            ## 知鱼 (FishInsight) v1.1.0 — 闲鱼账号安全登录
 
-            ### 快速下载 / Download:
-            - **[FishInsight-v1.0.0-arm64.apk](https://github.com/ASEpromax/FishInsight/releases/download/v1.0.0/FishInsight-v1.0.0-arm64.apk)** (20.6MB)
+            ### 🔧 本次更新
 
-            ---
-            ### 功能亮点:
-            1. 官方 WebView 安全登录与一键订单同步导入
-            2. 多维财务经营大盘（毛利、净利、ROI、成本透视、收支柱状图）
-            3. 订单履约工作台（待发货、已发货、已完成、售后纠纷全流程管线）
-            4. 实时单笔净利润与闲鱼 0.6% 软件服务费测算器
-            5. DeepSeek AI 商业参谋智能诊断
+            #### 修复
+            - **修复闲鱼同步加载失败** (`net::ERR_NAME_NOT_RESOLVED`)：旧版加载了不存在的 `m.goofish.com/my/sold` 页面，现已改为正确的淘宝官方登录入口
 
-            *(所有数据均保存在本地 Hive 数据库中，100% 保护卖家隐私)*
+            #### 新增
+            - **闲鱼账号安全登录**：通过淘宝官方 WebView 页面登录，知鱼不保存任何账号密码
+            - **登录与同步分离**：登录页只负责认证，同步页独立提取订单，流程更清晰
+            - **账号管理中心**：设置页展示登录状态、昵称、上次同步时间，支持一键退出
+            - **Cookie 过期检测**：同步时自动检测登录是否过期，引导重新登录
+            - **安全存储**：登录凭证使用 Android Keystore 硬件加密（flutter_secure_storage）
+
+            #### 改进
+            - 所有页面的同步按钮智能路由（已登录→同步页，未登录→登录页）
+            - 订单提取脚本增加多策略数据源检测
+            - 退出登录增加二次确认，已导入订单不受影响
+
+            ### 🔒 安全说明
+            - 登录全程由淘宝官方页面完成，知鱼**不获取、不存储**你的账号密码
+            - Cookie 由 Android WebView 内核管理，加密存储于 App 沙盒
+            - 所有交易数据 100% 本地存储，不上传任何服务器
+
+            ### 📲 下载
+            - **[FishInsight-v1.1.0-arm64.apk](https://github.com/ASEpromax/FishInsight/releases/download/v1.1.0/FishInsight-v1.1.0-arm64.apk)**

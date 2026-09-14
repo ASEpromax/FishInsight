@@ -1,7 +1,7 @@
 name: fishinsight
 description: 知鱼 (FishInsight) —— 闲鱼商业智能与财务分析系统：订单履约工作台、进销存多维透视、实时毛利精算与 AI 经营参谋。
 publish_to: "none"
-version: 1.0.0+1
+version: 1.1.0+2
 environment:
   sdk: ">=3.0.0"
 

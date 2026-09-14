@@ -7,6 +7,8 @@ import 'package:fishinsight/model/finance_stats.dart';
 import 'package:fishinsight/model/order_transaction.dart';
 import 'package:fishinsight/page/order/order_edit_page.dart';
 import 'package:fishinsight/page/sync/xianyu_login_page.dart';
+import 'package:fishinsight/page/sync/xianyu_sync_page.dart';
+import 'package:fishinsight/service/xianyu_account_service.dart';
 
 class FinanceDashboardPage extends StatefulWidget {
   const FinanceDashboardPage({super.key});
@@ -53,7 +55,11 @@ class _FinanceDashboardPageState extends State<FinanceDashboardPage> {
             tooltip: '一键同步闲鱼订单',
             icon: const Icon(Icons.cloud_sync_rounded, color: Color(0xFFD97706)),
             onPressed: () async {
-              final res = await Get.to(() => const XianyuLoginPage());
+              final accountService = XianyuAccountService(_db);
+              final loggedIn = await accountService.isLoggedIn();
+              final res = loggedIn
+                  ? await Get.to(() => const XianyuSyncPage())
+                  : await Get.to(() => const XianyuLoginPage());
               if (res == true) _loadData();
             },
           ),
@@ -153,7 +159,11 @@ class _FinanceDashboardPageState extends State<FinanceDashboardPage> {
           ),
           ElevatedButton(
             onPressed: () async {
-              final res = await Get.to(() => const XianyuLoginPage());
+              final accountService = XianyuAccountService(_db);
+              final loggedIn = await accountService.isLoggedIn();
+              final res = loggedIn
+                  ? await Get.to(() => const XianyuSyncPage())
+                  : await Get.to(() => const XianyuLoginPage());
               if (res == true) _loadData();
             },
             style: ElevatedButton.styleFrom(
