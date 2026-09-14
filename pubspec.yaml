@@ -1,0 +1,40 @@
+name: fishinsight
+description: 知鱼 (FishInsight) —— 闲鱼商业智能与财务分析系统：订单履约工作台、进销存多维透视、实时毛利精算与 AI 经营参谋。
+publish_to: "none"
+version: 1.0.0+1
+environment:
+  sdk: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  get:
+  cupertino_icons:
+  table_calendar:
+  hive:
+  hive_flutter:
+  uuid:
+  flutter_svg:
+  intl:
+  extended_sliver:
+  url_launcher:
+  quiver: ^3.2.1
+  flutter_local_notifications: ^17.2.4
+  flutter_secure_storage: ^9.2.4
+  path_provider:
+  share_plus: ^12.0.1
+  timezone:
+  device_info_plus:
+  file_picker: ^8.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
