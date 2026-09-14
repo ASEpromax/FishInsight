@@ -535,7 +535,7 @@ class _FinanceDashboardPageState extends State<FinanceDashboardPage> {
                     ],
                   ),
                 );
-              }).toList(),
+              }),
           ],
         ),
       ),

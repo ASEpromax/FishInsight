@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fishinsight/database/database_helper.dart';
 import 'package:fishinsight/design/app_theme.dart';
-import 'package:fishinsight/model/order_transaction.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -52,6 +51,34 @@ class _SettingsPageState extends State<SettingsPage> {
         final rate = val / 100;
         await _db.setSetting('platform_fee_rate', rate.toString());
         setState(() => _platformFeeRate = rate);
+        Get.back();
+      },
+    );
+  }
+
+  void _editApiKey() {
+    final controller = TextEditingController(text: _apiKey);
+    Get.defaultDialog(
+      title: '配置 DeepSeek API Key',
+      content: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            hintText: 'sk-...',
+            border: OutlineInputBorder(),
+            isDense: true,
+          ),
+        ),
+      ),
+      textConfirm: '保存',
+      textCancel: '取消',
+      confirmTextColor: Colors.white,
+      buttonColor: AppTheme.primary,
+      onConfirm: () async {
+        final val = controller.text.trim();
+        await _db.setSetting('deepseek_api_key', val);
+        setState(() => _apiKey = val);
         Get.back();
       },
     );
@@ -106,6 +133,13 @@ class _SettingsPageState extends State<SettingsPage> {
                   trailing: const Icon(Icons.chevron_right_rounded),
                   onTap: _editPlatformFee,
                 ),
+                ListTile(
+                  leading: const Icon(Icons.auto_awesome_rounded, color: Color(0xFF6366F1)),
+                  title: const Text('AI 商业参谋密钥 (DeepSeek)'),
+                  subtitle: Text(_apiKey.isNotEmpty ? '已配置密钥 (sk-***)' : '未配置 (使用本地专家模型)'),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: _editApiKey,
+                ),
               ],
             ),
           ),
@@ -133,20 +167,20 @@ class _SettingsPageState extends State<SettingsPage> {
           const SizedBox(height: 16),
 
           // 关于知鱼
-          Card(
+          const Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
                   child: Text('关于知鱼', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                 ),
-                const ListTile(
+                ListTile(
                   leading: Icon(Icons.info_outline_rounded, color: Color(0xFF10B981)),
                   title: Text('知鱼 (FishInsight)'),
                   subtitle: Text('版本 1.0.0 · 闲鱼商业智能与财务分析系统'),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
                   child: Text(
                     '“子非鱼，安知鱼之乐？子非我，安知我不知鱼之乐？”\n为闲鱼个人卖家、二手电商创作者打造的极简商业决策与财务中枢。',
