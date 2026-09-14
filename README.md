@@ -3,6 +3,12 @@
 > “子非鱼，安知鱼之乐？子非我，安知我不知鱼之乐？”  
 > ——《庄子·秋水》
 
+[![GitHub Release](https://img.shields.io/github/v/release/ASEpromax/FishInsight?color=orange&label=Release&logo=github)](https://github.com/ASEpromax/FishInsight/releases/latest)
+[![Download APK](https://img.shields.io/badge/Download-APK%20(v1.0.0)-brightgreen?logo=android)](https://github.com/ASEpromax/FishInsight/releases/download/v1.0.0/app-release.apk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+👉 **[立即前往 Releases 下载安装包 (app-release.apk)](https://github.com/ASEpromax/FishInsight/releases/tag/v1.0.0)**
+
 **知鱼 (FishInsight)** 是一套面向闲鱼个人卖家、二手电商创作者与捡漏选品玩家的**商业智能与财务分析系统（BI & Analytics System）**。  
 以数据分析为核心、订单履约流程为骨架，帮助卖家看清每一笔账，抓住每一个赚钱品类。
 
