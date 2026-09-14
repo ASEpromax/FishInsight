@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fishinsight/database/database_helper.dart';
 import 'package:fishinsight/design/app_theme.dart';
+import 'package:fishinsight/page/sync/xianyu_login_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -125,6 +126,18 @@ class _SettingsPageState extends State<SettingsPage> {
                 const Padding(
                   padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
                   child: Text('闲鱼业务与核算规则', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.cloud_sync_rounded, color: Color(0xFF10B981)),
+                  title: const Text('闲鱼官方账号连接与同步'),
+                  subtitle: Text(_db.getSetting('xianyu_connected') == 'true'
+                      ? '已连接 · 上次同步 ${_db.getSetting('last_sync_time', defaultValue: '')}'
+                      : '未连接 (点击登录并一键导入已卖出订单)'),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: () async {
+                    await Get.to(() => const XianyuLoginPage());
+                    setState(() {});
+                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.percent_rounded, color: Color(0xFFF59E0B)),

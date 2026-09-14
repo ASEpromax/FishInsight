@@ -4,6 +4,7 @@ import 'package:fishinsight/database/database_helper.dart';
 import 'package:fishinsight/design/app_theme.dart';
 import 'package:fishinsight/model/order_transaction.dart';
 import 'package:fishinsight/page/order/order_edit_page.dart';
+import 'package:fishinsight/page/sync/xianyu_login_page.dart';
 
 class OrderListPage extends StatefulWidget {
   const OrderListPage({super.key});
@@ -55,6 +56,14 @@ class _OrderListPageState extends State<OrderListPage> {
       appBar: AppBar(
         title: const Text('闲鱼订单履约工作台'),
         actions: [
+          IconButton(
+            tooltip: '一键同步闲鱼订单',
+            icon: const Icon(Icons.cloud_sync_rounded, color: Color(0xFFD97706)),
+            onPressed: () async {
+              final res = await Get.to(() => const XianyuLoginPage());
+              if (res == true) _loadData();
+            },
+          ),
           IconButton(
             tooltip: '新建订单',
             icon: const Icon(Icons.add_rounded),

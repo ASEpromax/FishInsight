@@ -6,6 +6,7 @@ import 'package:fishinsight/design/app_theme.dart';
 import 'package:fishinsight/model/finance_stats.dart';
 import 'package:fishinsight/model/order_transaction.dart';
 import 'package:fishinsight/page/order/order_edit_page.dart';
+import 'package:fishinsight/page/sync/xianyu_login_page.dart';
 
 class FinanceDashboardPage extends StatefulWidget {
   const FinanceDashboardPage({super.key});
@@ -49,6 +50,14 @@ class _FinanceDashboardPageState extends State<FinanceDashboardPage> {
         title: const Text('知鱼 · 商业财务透视'),
         actions: [
           IconButton(
+            tooltip: '一键同步闲鱼订单',
+            icon: const Icon(Icons.cloud_sync_rounded, color: Color(0xFFD97706)),
+            onPressed: () async {
+              final res = await Get.to(() => const XianyuLoginPage());
+              if (res == true) _loadData();
+            },
+          ),
+          IconButton(
             tooltip: '刷新数据',
             icon: const Icon(Icons.refresh_rounded),
             onPressed: _loadData,
@@ -69,6 +78,9 @@ class _FinanceDashboardPageState extends State<FinanceDashboardPage> {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           children: [
+            // 0. 闲鱼账号同步 Banner
+            _buildSyncBanner(),
+
             // 1. 核心资产与利润总览卡片 (Hero Profit Card)
             _buildHeroProfitCard(totalRev, totalProf, totalCost, avgMargin, overallRoi),
             const SizedBox(height: 16),
@@ -90,6 +102,70 @@ class _FinanceDashboardPageState extends State<FinanceDashboardPage> {
             const SizedBox(height: 80), // 底部留白给 FAB
           ],
         ),
+      ),
+    );
+  Widget _buildSyncBanner() {
+    final isConnected = _db.getSetting('xianyu_connected') == 'true';
+    final lastSync = _db.getSetting('last_sync_time', defaultValue: '未同步');
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: isConnected ? const Color(0xFFEFF6FF) : const Color(0xFFFEF3C7),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(
+          color: isConnected ? const Color(0xFFBFDBFE) : const Color(0xFFFDE68A),
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            isConnected ? Icons.cloud_done_rounded : Icons.cloud_sync_rounded,
+            color: isConnected ? const Color(0xFF2563EB) : const Color(0xFFD97706),
+            size: 24,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  isConnected ? '闲鱼账号已连接' : '一键导入闲鱼订单',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: isConnected ? const Color(0xFF1E3A8A) : const Color(0xFF92400E),
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  isConnected ? '上次同步：$lastSync' : '官方授权登录，一键拉取全部历史成交数据',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: isConnected ? const Color(0xFF3B82F6) : const Color(0xFFB45309),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final res = await Get.to(() => const XianyuLoginPage());
+              if (res == true) _loadData();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: isConnected ? const Color(0xFF2563EB) : const Color(0xFFD97706),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            child: Text(
+              isConnected ? '再同步' : '立即导入',
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }

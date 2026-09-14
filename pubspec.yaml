@@ -21,6 +21,7 @@ dependencies:
   extended_sliver:
   url_launcher:
   http: ^1.2.0
+  webview_flutter: ^4.10.0
   quiver: ^3.2.1
   flutter_local_notifications: ^17.2.4
   flutter_secure_storage: ^9.2.4
