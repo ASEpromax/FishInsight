@@ -4,10 +4,12 @@
 > ——《庄子·秋水》
 
 [![GitHub Release](https://img.shields.io/github/v/release/ASEpromax/FishInsight?color=orange&label=Release&logo=github)](https://github.com/ASEpromax/FishInsight/releases/latest)
-[![Download APK](https://img.shields.io/badge/Download-APK%20(v1.0.0)-brightgreen?logo=android)](https://github.com/ASEpromax/FishInsight/releases/download/v1.0.0/app-release.apk)
+[![Fast Download](https://img.shields.io/badge/⚡%20国内高速下载-APK%20(v1.0.0)-brightgreen?logo=android)](https://ghfast.top/https://github.com/ASEpromax/FishInsight/releases/download/v1.0.0/FishInsight-v1.0.0-arm64.apk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-👉 **[立即前往 Releases 下载安装包 (app-release.apk)](https://github.com/ASEpromax/FishInsight/releases/tag/v1.0.0)**
+### 📲 立即下载安装包 (v1.0.0)
+- ⚡ **[国内高速直链下载（免魔法·推荐）](https://ghfast.top/https://github.com/ASEpromax/FishInsight/releases/download/v1.0.0/FishInsight-v1.0.0-arm64.apk)** (20.6MB)
+- 🌐 **[GitHub 官方 Releases 详情页](https://github.com/ASEpromax/FishInsight/releases/tag/v1.0.0)**
 
 **知鱼 (FishInsight)** 是一套面向闲鱼个人卖家、二手电商创作者与捡漏选品玩家的**商业智能与财务分析系统（BI & Analytics System）**。  
 以数据分析为核心、订单履约流程为骨架，帮助卖家看清每一笔账，抓住每一个赚钱品类。
