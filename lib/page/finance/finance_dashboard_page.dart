@@ -104,6 +104,8 @@ class _FinanceDashboardPageState extends State<FinanceDashboardPage> {
         ),
       ),
     );
+  }
+
   Widget _buildSyncBanner() {
     final isConnected = _db.getSetting('xianyu_connected') == 'true';
     final lastSync = _db.getSetting('last_sync_time', defaultValue: '未同步');
